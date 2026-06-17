@@ -6,12 +6,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-        taskFive();
+        calculatingTheАmount();
 
     }
 
 
-    public static void taskOne(){
+    public static void checkIsEvenOrNot(){
 
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter number:");
@@ -25,7 +25,7 @@ public class Main {
 
     }
 
-    public static void taskTwo(){
+    public static void checkTemperature(){
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter number:");
         int t = sc.nextInt();
@@ -39,7 +39,7 @@ public class Main {
 
     }
 
-    public static void taskThree(){
+    public static void calculatingSquaresOfNumbers(){
 
         for (int i = 10; i <=20;i++){
             System.out.println(i*i);
@@ -47,7 +47,7 @@ public class Main {
 
     }
 
-    public static void taskFour(){
+    public static void outputNumbers(){
         int number = 7;
         int sum = 0;
         while (sum != 98){
@@ -56,7 +56,7 @@ public class Main {
         }
     }
 
-    public static void taskFive(){
+    public static void calculatingTheАmount(){
 
         Scanner sc = new Scanner(System.in);
         boolean isWrong = true;

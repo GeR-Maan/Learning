@@ -3,18 +3,18 @@ package homework2;
 public class Main {
     public static void main(String[] args) {
 
-        taskSixLight();
+        calculateA();
 
     }
 
 
-    public static void taskOne(){
+    public static void calculateA(){
 
         int b = 5;
         int c = 3;
 
-        // Так как переменная a нигде не будет использоваться не видел смысла её объявлять
-        System.out.println(4*(b+c-1)/2);
+        int a = 4*(b+c-1)/2;
+        System.out.println(a);
     }
 
     public static void taskTwo(){

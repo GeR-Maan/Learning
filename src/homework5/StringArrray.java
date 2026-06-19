@@ -4,20 +4,23 @@ public class StringArrray {
 
     public static void main(String[] args) {
 
-        String[][] array = new String[8][8];
+/*        String[][] array = new String[8][8];
         //Создаём массив
         makeStringArray(array);
         // Выводим
-        printArray(array);
+        printArray(array);*/
 
+        makeZipper(4,5);
 
     }
 
 
     public static void makeStringArray(String[][] array) {
         //Берем флаг как ориентир по смене букв
-        boolean flag = true;
+        boolean flag;
         // Заполняем массив
+        System.out.println("-".repeat(30));
+        System.out.println("Заполняем шахматную доску...");
         for (int i = 0; i < 8; i++) {
 
             if (i % 2 == 0) {
@@ -37,13 +40,14 @@ public class StringArrray {
                     array[i][j] = "W";
                     flag = true;
                 }
-                ;
+
             }
         }
 
     }
 
     public static void printArray(String[][] array) {
+        System.out.println("-".repeat(30));
         System.out.println("Массив: ");
 
         for (int i = 0; i < 8; i++) {
@@ -56,18 +60,37 @@ public class StringArrray {
 
 
 
-/*    public static void makeZipper(int[][] array) {
+    public static void makeZipper(int columns, int lines) {
 
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 6; j++) {
-                array[i][j] = i;
+        int[][] array = new int[columns][lines];
+        // Берём обычный счётчик
+        int count = 0;
 
-                if (i % 2 == 0) {
+        for (int i = 0; i < columns; i++) {
 
+            if (i % 2 == 0) {
+                // Четную заполняем слева направо
+                for (int j = 0; j < lines; j++) {
+                    array[i][j] = count++;
+                }
+            } else {
+                // Нечетную наоборот
+                for (int j = lines - 1; j >= 0; j--) {
+                    array[i][j] = count++;
                 }
             }
         }
-    }*/
+
+        // Вывод
+        System.out.println("-".repeat(30));
+        System.out.println("Вывод массива:");
+        for (int[] ints : array) {
+            for (int anInt : ints) {
+                System.out.print(anInt + " ");
+            }
+            System.out.println();
+        }
+    }
 
 
 }

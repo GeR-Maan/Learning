@@ -11,6 +11,12 @@ public class Main {
         // Назначаем доктора пациенту
         therapist.setDoctor(patient);
 
+
+
+        // Задача 2
+
+        Apple apple = new Apple("Green");
+        System.out.println(apple.getColor());
     }
 
 

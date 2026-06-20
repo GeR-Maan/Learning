@@ -11,6 +11,8 @@ public class Main {
         // Назначаем доктора пациенту
         therapist.setDoctor(patient);
 
+        System.out.println("-".repeat(30));
+        System.out.println();
 
 
         // Задача 2

@@ -14,6 +14,7 @@ public class Patient {
     }
 
     public void setDoctor(Doctor doctor) {
+        System.out.println("Назначаем доктора...");
         this.doctor = doctor;
     }
 

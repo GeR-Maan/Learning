@@ -4,7 +4,7 @@ public class Therapist extends Doctor {
 
     @Override
     public void heal() {
-        System.out.println("Therapist heal");
+        System.out.println("Лечение терапевтом начато");
     }
 
     // присваиваем доктора пациенту исходя из плана лечения пациента
@@ -23,6 +23,7 @@ public class Therapist extends Doctor {
         }
         // Назначаем выбранного доктора
         patient.setDoctor(assignedDoctor);
+        System.out.println("Доктор назначен, подбор лечения...");
         // Он лечит
         assignedDoctor.heal();
 

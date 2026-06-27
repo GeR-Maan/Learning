@@ -8,6 +8,11 @@ public class Main {
 
         int[][] array = new int[4][4];
 
+        makeArray(array);
+        printArray(array);
+        summeringVariableToArray(array);
+        printArray(array);
+        summeringOfArray(array);
 
     }
 
@@ -66,6 +71,7 @@ public class Main {
             for (int j = 0; j < array[i].length; j++) {
                 System.out.print(array[i][j] + " ");
             }
+            System.out.println();
         }
     }
 

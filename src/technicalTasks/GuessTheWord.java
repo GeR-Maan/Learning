@@ -6,23 +6,43 @@ public class GuessTheWord {
 
     public static void main(String[] args) {
 
-        game(makeWords());
+        playGame();
 
     }
 
+    /*
+    1) Создать слово  YES
+    2) Сделать набор из 20 слов YES
+    3) Вытащить одно слово на рандом как загаданное YES
+    4) Правильная буква или нет  YES
+    5) Угадал или нет слово   YES
+    6) Есть ли закрытые буквы YES
+    7) главная логика игры  YES
+     */
 
-    public static String[] makeWords(){
+    public static String createWord() {
+
+        Scanner sc = new Scanner(System.in);
+        String word;
+        word = sc.nextLine();
+
+        return word;
+    }
+
+
+    public static String[] makeWords() {
 
         System.out.println("Задайте 20 слов.");
         String[] words = new String[20];
-        Scanner sc = new Scanner(System.in);
+
 
         for (int count = 0; count < 20; count++) {
-            System.out.println("Введите " + (count+1) + " слово: ");
-            String word = sc.nextLine();
-            while (word.length() < 3){
+            System.out.println("Введите " + (count + 1) + " слово: ");
+            String word = createWord();
+
+            while (word.length() < 3) {
                 System.out.println("Загаданное слово меньше 3 букв. Введите другое слово:");
-                word = sc.nextLine();
+                word = createWord();
             }
             words[count] = word;
         }
@@ -30,81 +50,121 @@ public class GuessTheWord {
         return words;
     }
 
-    public static void game(String[] words){
+    public static String chooseWord(String[] words) {
+        return words[(int) (Math.random() * 20)];
+    }
 
-        String myWord = words[(int) (Math.random() * 20)];
-        char[] terminalWord = new char[myWord.length()];
-        int attempt = 5;
-        boolean isRight = false;
-        Scanner sc = new Scanner(System.in);
+    public static String getGuessInput(int targetLength) {
 
-        System.out.println("Игра началась! Угадайте слово!");
+        String guessInput = createWord();
 
+        while (guessInput.length() != 1 && guessInput.length() != targetLength) {
 
-        while (attempt > 0 && isRight == false){
-            System.out.println(terminalWord);
-            System.out.printf("""
-                    Осталось попыток: %d
-                    Введите букву или полное слово:
-                    """,attempt);
-
-            String hunch = sc.nextLine();
-
-            while (hunch.length()!=1 && hunch.length()!=myWord.length()){
-                System.out.println("Надо ввести полное слово или 1 букву!" +
-                        "Введите снова:");
-                hunch = sc.nextLine();
-            }
-
-            if (hunch.equalsIgnoreCase(myWord)){
-                isRight = true;
-            }
-            else if (hunch.length() == myWord.length() && isRight == false){
-                System.out.println("Догадка неправильная! :)");
-            }
-
-            if (hunch.length() == 1){
-                int index = myWord.indexOf(hunch);
-
-                if (index == -1){
-                    System.out.println("Такой буквы нет в слове!");
-                }
-                else{
-                    terminalWord[index] = hunch.charAt(0);
-                    boolean isAny = false;
-                    isRight = true;
-
-                    for (char symbol : terminalWord) {
-                        if (symbol == '\0') {
-                            isAny = true;
-                            break;
-                        }
-                    }
-                    if (isAny){
-                        isRight = false;
-                    }
-
-                }
-
-            }
-            attempt--;
-        }
-        if (isRight == true){
-            System.out.printf("""
-                    Победа!
-                    Вы угадали слово!
-                    Загаданное слово: %s
-                    """,myWord);
-        }
-        else{
-            System.out.printf("""
-                    Вы не угадали слово!
-                    Загаданное слово: %s
-                    """,myWord);
+            System.out.println("Введите 1 букву или сразу слово:");
+            guessInput = createWord();
 
         }
+
+        return guessInput;
 
     }
+
+
+    public static boolean isRightLetter(char ch, String rightWord) {
+
+        int index = rightWord.indexOf(ch);
+
+        if (index == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+    public static boolean isRightWord(String guess, String rightWord) {
+        return guess.equalsIgnoreCase(rightWord);
+    }
+
+    public static boolean isLettersClosed(char[] mask) {
+        for (char symbol : mask) {
+            if (symbol == '*') {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public static void playGame() {
+
+        Scanner sc = new Scanner(System.in);
+        String[] words = makeWords();
+
+        while (true) {
+            String secretWord = chooseWord(words);
+            char[] mask = new char[secretWord.length()];
+
+            for (int i = 0; i < mask.length; i++) {
+                mask[i] = '*';
+            }
+
+            int attempts = 5;
+            System.out.println("\n=== Игра началась! Угадайте слово! ===");
+
+            while (attempts > 0) {
+                System.out.println("Слово: " + String.valueOf(mask));
+                System.out.println("Осталось попыток: " + attempts);
+
+                String guess = getGuessInput(secretWord.length());
+
+                if (guess.length() == 1) {
+                    char letter = guess.charAt(0);
+
+                    if (isRightLetter(letter, secretWord)) {
+
+                        for (int i = 0; i < secretWord.length(); i++) {
+                            if (Character.toLowerCase(secretWord.charAt(i)) == Character.toLowerCase(letter)) {
+                                mask[i] = secretWord.charAt(i);
+                            }
+                        }
+                        attempts--;
+                    } else {
+                        System.out.println("Такой буквы нет!");
+                        attempts--;
+                    }
+                } else {
+
+                    if (isRightWord(guess, secretWord)) {
+                        System.out.println("\nПОБЕДА! Вы угадали слово: " + secretWord);
+                        break;
+                    } else {
+                        System.out.println("Слово неверное!");
+                        attempts--;
+                    }
+                }
+
+                if (!isLettersClosed(mask)) {
+                    System.out.println("\nПОБЕДА! Вы угадали слово по буквам: " + secretWord);
+                    break;
+                }
+            }
+
+            if (attempts == 0) {
+                System.out.println("\nВЫ ПРОИГРАЛИ! Загаданное слово было: " + secretWord);
+
+                System.out.println("\nХотите начать заново? (Да/Нет)");
+                String answer = sc.nextLine();
+                if (!answer.equalsIgnoreCase("Да")) {
+                    System.out.println("Прощайте, до свидания.");
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+    }
+
 
 
 }

@@ -4,11 +4,11 @@ public class StringArrray {
 
     public static void main(String[] args) {
 
-/*        String[][] array = new String[8][8];
-        //Создаём массив
+        String[][] array = new String[8][8];
+
         makeStringArray(array);
-        // Выводим
-        printArray(array);*/
+
+        printArray(array);
 
         makeZipper(4,5);
 

@@ -17,7 +17,7 @@ public class Director implements TitleOfThePosition, Cloneable{
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    protected Director clone() throws CloneNotSupportedException {
         return (Director) super.clone();
     }
 }
